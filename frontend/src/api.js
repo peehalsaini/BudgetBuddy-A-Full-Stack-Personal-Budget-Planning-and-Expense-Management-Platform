@@ -1,12 +1,13 @@
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+const API_URL = import.meta.env.VITE_API_URL || ''
 
 const api = axios.create({ baseURL: API_URL })
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('access')
   if (token) config.headers.Authorization = `Bearer ${token}`
+  config.headers['bypass-tunnel-reminder'] = '1'
   return config
 })
 
@@ -32,8 +33,9 @@ api.interceptors.response.use(
         } catch (e) {
           refreshing = null
           localStorage.removeItem('access')
-          localStorage.removeItem('refresh')
-          window.location.href = '/login'
+          if (window.location.pathname !== '/login') {
+            window.location.href = '/login'
+          }
         }
       }
     }
