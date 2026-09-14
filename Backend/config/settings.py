@@ -109,11 +109,11 @@ MIDDLEWARE = [
 
     "django.middleware.security.SecurityMiddleware",
 
+    # CORS - should be as high as possible
+    "corsheaders.middleware.CorsMiddleware",
+
     # WhiteNoise
     "whitenoise.middleware.WhiteNoiseMiddleware",
-
-    # CORS
-    "corsheaders.middleware.CorsMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
 
@@ -127,7 +127,6 @@ MIDDLEWARE = [
 
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 
 # =========================================================
 # URL CONFIGURATION
